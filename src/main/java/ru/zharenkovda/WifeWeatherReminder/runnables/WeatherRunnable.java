@@ -1,12 +1,14 @@
 package ru.zharenkovda.WifeWeatherReminder.runnables;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.zharenkovda.WifeWeatherReminder.repository.WeatherRepository;
 import ru.zharenkovda.WifeWeatherReminder.services.WeatherService;
 
 import java.io.IOException;
 
 public class WeatherRunnable implements Runnable {
-
+    private static final Logger LOGGER= LoggerFactory.getLogger(WeatherRunnable.class);
 
     private WeatherRepository weatherRepository;
     private WeatherService weatherService;
@@ -21,7 +23,7 @@ public class WeatherRunnable implements Runnable {
         try {
            weatherRepository.setWeatherString(weatherService.getWeatherString());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(),e);
         }
     }
 }

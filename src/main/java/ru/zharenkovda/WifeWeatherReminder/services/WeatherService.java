@@ -39,7 +39,7 @@ public class WeatherService {
         JsonNode txtForecastToday = json.get("forecast").get("txt_forecast").get("forecastday").get(1);
 
         if (simpleForecastToday ==null){
-            //TODO exception
+            return "";
         }
         String weekday = simpleForecastToday.get("date").get("weekday_short").asText();
         String maxTemp = simpleForecastToday.get("high").get("celsius").asText();
@@ -55,7 +55,7 @@ public class WeatherService {
             if (StringUtils.isNotEmpty(nightInfoTitle) && StringUtils.isNotEmpty(nightInfo)) {
                 char[] nightInfoArr = nightInfo.toCharArray();
                 nightInfoArr[0] = Character.toLowerCase(nightInfoArr[0]);
-                nightInfo = new String(nightInfoArr);
+                nightInfo = new String(nightInfoArr).replace("переменчевый","переменчивый");
                 result = result + String.format(" %s %s", nightInfoTitle, nightInfo);
 
             }

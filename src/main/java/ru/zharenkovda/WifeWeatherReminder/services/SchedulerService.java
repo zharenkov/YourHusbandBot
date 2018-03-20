@@ -8,18 +8,25 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SchedulerService {
 
-    private ScheduledThreadPoolExecutor scheduledExecutorService = new ScheduledThreadPoolExecutor(10);
+    private ScheduledThreadPoolExecutor scheduledExecutorService;
+
+    private ScheduledThreadPoolExecutor getScheduledExecutorService(){
+        if (scheduledExecutorService == null || scheduledExecutorService.isTerminated()){
+            return new ScheduledThreadPoolExecutor(10);
+        } else
+            return scheduledExecutorService;
+    }
 
     public void executeRunnableTask(Runnable runnable, Long offset, TimeUnit unit){
-        scheduledExecutorService.scheduleAtFixedRate(runnable,0,offset,unit);
+        getScheduledExecutorService().scheduleAtFixedRate(runnable,0,offset,unit);
     }
 
     public void clearQueue(){
-        scheduledExecutorService.getQueue().clear();
+        getScheduledExecutorService().getQueue().clear();
     }
 
     public void stopExecutorService(){
         clearQueue();
-        scheduledExecutorService.shutdown();
+        getScheduledExecutorService().shutdown();
     }
 }

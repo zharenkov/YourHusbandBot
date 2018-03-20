@@ -35,8 +35,9 @@ public class WeatherPollingController {
     }
 
     @RequestMapping("/start")
-    public void startWeatherPolling() throws IOException, ExecutionException, InterruptedException {
+    public String startWeatherPolling() throws IOException, ExecutionException, InterruptedException {
         schedulerService.executeRunnableTask(new WeatherRunnable(weatherRepository,weatherService),4L, TimeUnit.HOURS);
+        return "OK";
     }
 
 }

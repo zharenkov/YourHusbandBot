@@ -13,7 +13,7 @@ public class TwitterFactoryImpl {
     public static Twitter getIntsance(String twitterAuthPropsFileName) throws TwitterInitializationException {
         Properties twitterProps = null;
         try {
-            twitterProps = Utils.loadProperties(twitterAuthPropsFileName);
+            twitterProps = PropsUtils.loadProperties(twitterAuthPropsFileName);
         } catch (IOException e){
             e.printStackTrace();
             throw new TwitterInitializationException("Can't read props file", e);

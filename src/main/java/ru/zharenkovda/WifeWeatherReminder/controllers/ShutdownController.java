@@ -12,8 +12,15 @@ public class ShutdownController {
     @Autowired
     private SchedulerService schedulerService;
 
-    @RequestMapping("/")
-    public void stopAll(){
+    @RequestMapping("/stop")
+    public String stopAll(){
         schedulerService.stopExecutorService();
+        return "Scheduler is stopped";
+    }
+
+    @RequestMapping("/start")
+    public String startService(){
+        schedulerService.startExecitorServiceAfterStop();
+        return "Scheduler rerunned";
     }
 }

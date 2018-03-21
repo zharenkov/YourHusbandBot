@@ -1,19 +1,19 @@
 package ru.zharenkovda.WifeWeatherReminder.runnables;
 
 import org.apache.commons.lang3.StringUtils;
-import ru.zharenkovda.WifeWeatherReminder.services.NotificationService;
+import ru.zharenkovda.WifeWeatherReminder.services.TelegramService;
 
 import java.io.IOException;
 @Deprecated
 public class TelegramRunnable implements Runnable {
 
 
-    NotificationService notificationService;
+    TelegramService telegramService;
     String message;
     String chatId;
 
-    public TelegramRunnable(NotificationService notificationService, String message,String chatId) {
-        this.notificationService = notificationService;
+    public TelegramRunnable(TelegramService telegramService, String message, String chatId) {
+        this.telegramService = telegramService;
         this.message = message;
         this.chatId = chatId;
     }
@@ -22,7 +22,7 @@ public class TelegramRunnable implements Runnable {
     public void run() {
         if (StringUtils.isNotEmpty(message)){
             try {
-                notificationService.sendTelegramBotMessage(message,chatId);
+                telegramService.sendTelegramBotMessage(message,chatId);
             } catch (IOException e) {
                 e.printStackTrace();
             }

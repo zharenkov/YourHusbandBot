@@ -1,23 +1,23 @@
 package ru.zharenkovda.WifeWeatherReminder.runnables;
 
 import org.apache.commons.lang3.StringUtils;
-import ru.zharenkovda.WifeWeatherReminder.services.NotificationService;
+import ru.zharenkovda.WifeWeatherReminder.services.SmsService;
 
 @Deprecated
 public class SmsRunnable implements Runnable {
 
-    NotificationService notificationService;
+    SmsService smsService;
     String message;
 
-    public SmsRunnable(NotificationService notificationService, String message) {
-        this.notificationService = notificationService;
+    public SmsRunnable(SmsService smsService, String message) {
+        this.smsService = smsService;
         this.message = message;
     }
 
     @Override
     public void run() {
         if (StringUtils.isNotEmpty(message)){
-            notificationService.sendTwilioSmsForecast(message);
+            smsService.sendTwilioSmsForecast(message);
         }
     }
 }

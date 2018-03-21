@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import ru.zharenkovda.WifeWeatherReminder.services.NotificationService;
 
 import java.io.IOException;
-
+@Deprecated
 public class TelegramRunnable implements Runnable {
 
 

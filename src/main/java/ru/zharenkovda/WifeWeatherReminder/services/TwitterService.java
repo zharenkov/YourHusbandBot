@@ -1,8 +1,6 @@
 package ru.zharenkovda.WifeWeatherReminder.services;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.zharenkovda.WifeWeatherReminder.utils.PropsUtils;
 import twitter4j.Twitter;
@@ -16,7 +14,6 @@ import java.util.Properties;
 
 @Service
 public class TwitterService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TwitterService.class);
     private static String twitterAuthPropsFileName = "twitter_oauth.properties";
     private Twitter twitter;
 
@@ -38,15 +35,9 @@ public class TwitterService {
 
     }
 
-    public void sendTwitterDirectMessage(String username,String message){
+    public void sendTwitterDirectMessage(String username,String message) throws TwitterException {
         if (StringUtils.isNotEmpty(message)){
-            try {
                 twitter.directMessages().sendDirectMessage(username,message);
-            } catch (TwitterException e) {
-                LOGGER.error(e.getMessage(),e);
-            }
-        } else {
-            LOGGER.warn("No weather info in repository");
         }
     }
 }

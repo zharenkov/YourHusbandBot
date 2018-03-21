@@ -3,6 +3,7 @@ package ru.zharenkovda.WifeWeatherReminder.runnables;
 import org.apache.commons.lang3.StringUtils;
 import ru.zharenkovda.WifeWeatherReminder.services.NotificationService;
 
+@Deprecated
 public class SmsRunnable implements Runnable {
 
     NotificationService notificationService;

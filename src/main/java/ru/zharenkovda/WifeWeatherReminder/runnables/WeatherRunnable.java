@@ -7,6 +7,7 @@ import ru.zharenkovda.WifeWeatherReminder.services.WeatherService;
 
 import java.io.IOException;
 
+@Deprecated
 public class WeatherRunnable implements Runnable {
     private static final Logger LOGGER= LoggerFactory.getLogger(WeatherRunnable.class);
 

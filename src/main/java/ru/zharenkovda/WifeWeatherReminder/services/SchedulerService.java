@@ -6,6 +6,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Deprecated
 public class SchedulerService {
 
     private ScheduledThreadPoolExecutor scheduledExecutorService =  new ScheduledThreadPoolExecutor(10);

@@ -51,8 +51,4 @@ public class NotificationService {
         }
         System.out.println(response);
     }
-
-    public void sendTwitterDirectMessage() throws IOException {
-
-    }
 }

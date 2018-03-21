@@ -19,9 +19,10 @@ import ru.zharenkovda.WifeWeatherReminder.services.WeatherService;
 
 import java.util.concurrent.TimeUnit;
 
-@RestController
-@EnableAutoConfiguration
-@RequestMapping("/")
+//@RestController
+//@EnableAutoConfiguration
+//@RequestMapping("/")
+@Deprecated
 public class NotificationSenderController {
 
     private static String twitterAuthPropsFileName = "twitter_oauth.properties";

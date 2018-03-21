@@ -10,8 +10,8 @@ public class SchedulerService {
 
     private ScheduledThreadPoolExecutor scheduledExecutorService =  new ScheduledThreadPoolExecutor(10);
 
-    public void executeRunnableTask(Runnable runnable, Long offset, TimeUnit unit){
-        scheduledExecutorService.scheduleAtFixedRate(runnable,0,offset,unit);
+    public void executeRunnableTask(Runnable runnable,Long initialDelay, Long offset, TimeUnit unit){
+        scheduledExecutorService.scheduleAtFixedRate(runnable,initialDelay,offset,unit);
     }
 
     public void clearQueue(){

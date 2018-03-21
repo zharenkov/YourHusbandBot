@@ -4,19 +4,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.zharenkovda.WifeWeatherReminder.repository.WeatherRepository;
+import ru.zharenkovda.WifeWeatherReminder.services.TwitterService;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 public class TwitterRunnable implements Runnable {
     private static final Logger LOGGER= LoggerFactory.getLogger(TwitterRunnable.class);
 
-
-    private Twitter twitter;
+    private TwitterService twitterService;
     private WeatherRepository repository;
     private String username;
 
-    public TwitterRunnable(Twitter twitter, WeatherRepository repository, String username) {
-        this.twitter = twitter;
+    public TwitterRunnable(TwitterService twitterService, WeatherRepository repository, String username) {
+        this.twitterService = twitterService;
         this.repository = repository;
         this.username = username;
     }
@@ -24,15 +24,6 @@ public class TwitterRunnable implements Runnable {
     @Override
     public void run() {
         String weather = repository.getWeatherString();
-        if (StringUtils.isNotEmpty(weather)){
-            try {
-                twitter.directMessages().sendDirectMessage(username,weather);
-            } catch (TwitterException e) {
-                LOGGER.error(e.getMessage(),e);
-            }
-        } else {
-            LOGGER.warn("No weather info in repository");
-        }
-
+        twitterService.sendTwitterDirectMessage(username,weather);
     }
 }

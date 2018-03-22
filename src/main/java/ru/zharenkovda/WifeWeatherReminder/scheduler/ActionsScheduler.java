@@ -1,5 +1,6 @@
 package ru.zharenkovda.WifeWeatherReminder.scheduler;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,7 @@ public class ActionsScheduler {
     @Autowired
     SmsService smsService;
 
-    @Scheduled(cron = "0 55 20 * * *",zone = "Europe/Samara")
+    @Scheduled(cron = "0/5 * * * * 1-5",zone = "Europe/Samara")
     public void getWeather() {
         try {
             System.out.println("Weather getting");
@@ -46,7 +47,7 @@ public class ActionsScheduler {
         }
     }
 
-    @Scheduled(cron = "0 0 21 * * *",zone = "Europe/Samara")
+    @Scheduled(cron = "2/5 * * * * 1-5",zone = "Europe/Samara")
     public void sendToTelegram() {
         try {
             System.out.println("Telegram sending");
@@ -56,20 +57,24 @@ public class ActionsScheduler {
         }
     }
 
-    @Scheduled(cron = "0 0 21 * * *",zone = "Europe/Samara")
+    @Scheduled(cron = "2/5 * * * * 1-5",zone = "Europe/Samara")
     public void sendToTwitter() {
-        try {
-            System.out.println("Twitter sending");
-            twitterService.sendTwitterDirectMessage(dataRepository.getTwitterUserName(), dataRepository.getWeatherString());
-        } catch (TwitterException e) {
-            LOGGER.error(e.getMessage(), e);
+        if (StringUtils.isNotEmpty(dataRepository.getTwitterUserName())) {
+            try {
+                System.out.println("Twitter sending");
+                twitterService.sendTwitterDirectMessage(dataRepository.getTwitterUserName(), dataRepository.getWeatherString());
+            } catch (TwitterException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
         }
     }
 
-    @Scheduled(cron = "0 0 21 * * *",zone = "Europe/Samara")
+    @Scheduled(cron = "2/5 * * * * 1-5",zone = "Europe/Samara")
     public void sendToSms() {
-        System.out.println("Sms sending");
-        smsService.sendTwilioSmsForecast(dataRepository.getWeatherString());
+        if (StringUtils.isNotEmpty(dataRepository.getPhoneNumber())) {
+            System.out.println("Sms sending");
+            smsService.sendTwilioSmsForecast(dataRepository.getPhoneNumber(), dataRepository.getWeatherString());
+        }
     }
 
     @Scheduled(cron = "0/15 * * * * *",zone = "Europe/Samara")

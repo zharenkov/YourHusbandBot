@@ -8,16 +8,18 @@ public class SmsRunnable implements Runnable {
 
     SmsService smsService;
     String message;
+    String phoneNumber;
 
-    public SmsRunnable(SmsService smsService, String message) {
+    public SmsRunnable(SmsService smsService,String phoneNumber, String message) {
         this.smsService = smsService;
         this.message = message;
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public void run() {
         if (StringUtils.isNotEmpty(message)){
-            smsService.sendTwilioSmsForecast(message);
+            smsService.sendTwilioSmsForecast(phoneNumber,message);
         }
     }
 }

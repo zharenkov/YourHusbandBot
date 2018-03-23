@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import ru.zharenkovda.WifeWeatherReminder.BotPhraseDAO;
+import ru.zharenkovda.WifeWeatherReminder.BotPhraseEntity;
 import ru.zharenkovda.WifeWeatherReminder.repository.DataRepository;
 import ru.zharenkovda.WifeWeatherReminder.services.TelegramService;
 import ru.zharenkovda.WifeWeatherReminder.services.SmsService;
@@ -37,7 +39,8 @@ public class ActionsScheduler {
     @Autowired
     SmsService smsService;
 
-    @Scheduled(cron = "0/5 * * * * 1-5",zone = "Europe/Samara")
+    //
+    // @Scheduled(cron = "0/5 * * * * 1-5",zone = "Europe/Samara")
     public void getWeather() {
         try {
             System.out.println("Weather getting");
@@ -47,7 +50,7 @@ public class ActionsScheduler {
         }
     }
 
-    @Scheduled(cron = "2/5 * * * * 1-5",zone = "Europe/Samara")
+    //@Scheduled(cron = "2/5 * * * * 1-5",zone = "Europe/Samara")
     public void sendToTelegram() {
         try {
             System.out.println("Telegram sending");
@@ -57,7 +60,7 @@ public class ActionsScheduler {
         }
     }
 
-    @Scheduled(cron = "2/5 * * * * 1-5",zone = "Europe/Samara")
+   // @Scheduled(cron = "2/5 * * * * 1-5",zone = "Europe/Samara")
     public void sendToTwitter() {
         if (StringUtils.isNotEmpty(dataRepository.getTwitterUserName())) {
             try {
@@ -69,7 +72,7 @@ public class ActionsScheduler {
         }
     }
 
-    @Scheduled(cron = "2/5 * * * * 1-5",zone = "Europe/Samara")
+    //@Scheduled(cron = "0 * * * * 1-5",zone = "Europe/Samara")
     public void sendToSms() {
         if (StringUtils.isNotEmpty(dataRepository.getPhoneNumber())) {
             System.out.println("Sms sending");
@@ -77,7 +80,7 @@ public class ActionsScheduler {
         }
     }
 
-    @Scheduled(cron = "0/15 * * * * *",zone = "Europe/Samara")
+   // @Scheduled(cron = "0/15 * * * * *",zone = "Europe/Samara")
     public void pollTelegramChannel() throws IOException {
         Long currentDate =System.currentTimeMillis()/1000;
         Long lastUpdateDate = telegramService.getUpdateTime();
@@ -86,5 +89,14 @@ public class ActionsScheduler {
             System.out.println("resp sended");
         }
 
+    }
+
+    @Autowired
+    BotPhraseDAO botPhraseDAO;
+    @Scheduled(cron = "0/30 * * * * *")
+    public  void getAllPhrases(){
+        for (BotPhraseEntity b : botPhraseDAO.getMornignPhrases()){
+            System.out.println(b.toString());
+        }
     }
 }

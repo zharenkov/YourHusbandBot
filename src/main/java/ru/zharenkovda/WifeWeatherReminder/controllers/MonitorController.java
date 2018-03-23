@@ -16,7 +16,7 @@ public class MonitorController {
 
     @RequestMapping("/weather")
     public String getWeather() {
-        return dataRepository.getWeatherString();
+        return dataRepository.getTodayWeatherString();
     }
 
     @RequestMapping("/chatId")

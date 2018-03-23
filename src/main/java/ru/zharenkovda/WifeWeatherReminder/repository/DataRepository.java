@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DataRepository {
 
-    private String weatherString;
+    private String todayWeatherString;
+
+    private String tommorowWeatherString;
 
     private String phoneNumber;
 
@@ -13,12 +15,12 @@ public class DataRepository {
 
     private String telegramChatId;
 
-    public String getWeatherString() {
-        return weatherString;
+    public String getTodayWeatherString() {
+        return todayWeatherString;
     }
 
-    public void setWeatherString(String weatherString) {
-        this.weatherString = weatherString;
+    public void setTodayWeatherString(String todayWeatherString) {
+        this.todayWeatherString = todayWeatherString;
     }
 
     public String getPhoneNumber() {
@@ -43,5 +45,13 @@ public class DataRepository {
 
     public void setTelegramChatId(String telegramChatId) {
         this.telegramChatId = telegramChatId;
+    }
+
+    public String getTommorowWeatherString() {
+        return tommorowWeatherString;
+    }
+
+    public void setTommorowWeatherString(String tommorowWeatherString) {
+        this.tommorowWeatherString = tommorowWeatherString;
     }
 }

@@ -2,38 +2,37 @@ package ru.zharenkovda.WifeWeatherReminder.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.stereotype.Service;
+import ru.zharenkovda.WifeWeatherReminder.utils.RestRequestHelper;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
 @Service
 public class WeatherService {
 
     private String darkSkyUrl = "https://api.darksky.net/forecast/cf3f211102b3f5a195c897ff6b52980c/53.2,50.15?units=si&lang=ru";
-    public String getWeatherString() throws IOException {
-        String json = getWeatherJSON();
-        return parseJsonDarkSkyStringToText(json);
+
+    public String getTodayWeather() throws IOException {
+        return parseTodayWeather(getWeatherJSON());
+    }
+
+    public String getTommorowWeather() throws IOException {
+        return parseTommorowWeather(getWeatherJSON());
     }
 
     private String getWeatherJSON() throws IOException {
-        StringBuilder jsonBuilder = new StringBuilder();
-        URL url = new URL(darkSkyUrl);
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-        connection.setRequestMethod("GET");
-        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String output;
-        while ((output = br.readLine())!=null){
-            jsonBuilder.append(output);
-        }
-        return jsonBuilder.toString();
+        String response = RestRequestHelper.sendGetRequest(darkSkyUrl);
+        return response;
     }
 
-    private String parseJsonDarkSkyStringToText(String jsonString) throws IOException {
+    private String parseTodayWeather(String jsonString) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(jsonString);
         JsonNode currentData = node.get("currently");
@@ -52,6 +51,27 @@ public class WeatherService {
         String result = String.format("Сегодня %s, температура воздуха %d℃, ощущается как %d℃. " +
                 "Максимальная температура %d℃, минимальная температура %d℃. Скорость ветра %dм/с с порывами до %dм/с. %s",
                 currentState,currentTemp,currentApparentTemp,maxTemp,minTemp,windSpeed,windGust,todaysSummaryData);
+
+        return result;
+    }
+
+    private String parseTommorowWeather(String jsonString) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(jsonString);
+
+        JsonNode tommorowDayDailyData = node.get("daily").get("data").get(1);
+        String tommorowSummary = tommorowDayDailyData.get("summary").asText().toLowerCase();
+        Long maxTemp = Math.round(tommorowDayDailyData.get("temperatureHigh").asDouble());
+        Long minTemp = Math.round(tommorowDayDailyData.get("temperatureLow").asDouble());
+        Long minApparentTemp = Math.round(tommorowDayDailyData.get("apparentTemperatureMin").asDouble());
+        Long windGust = Math.round(tommorowDayDailyData.get("windGust").asDouble());
+        Long windSpeed = Math.round(tommorowDayDailyData.get("windSpeed").asDouble());
+        DateTime sunrise = new DateTime(tommorowDayDailyData.get("sunriseTime").asLong()*1000, DateTimeZone.forID("Europe/Samara"));
+        String time = sunrise.getHourOfDay()+":"+sunrise.getMinuteOfHour();
+
+        String result = String.format("Завтра %s " +
+                        "Максимальная температура %d℃, минимальная температура %d℃, ощущается как %d℃. Скорость ветра %dм/с с порывами до %dм/с. Восход солнца в %s.",
+                tommorowSummary,maxTemp,minTemp,minApparentTemp,windSpeed,windGust,time);
 
         return result;
     }

@@ -1,4 +1,4 @@
-package ru.zharenkovda.WifeWeatherReminder;
+package ru.zharenkovda.WifeWeatherReminder.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ public class BotPhraseEntity {
 
     @Id
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "occasion")
     private String occasion;
@@ -28,11 +28,11 @@ public class BotPhraseEntity {
     public BotPhraseEntity() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

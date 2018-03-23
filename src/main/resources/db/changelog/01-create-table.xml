@@ -3,9 +3,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
-    <changeSet id="1" author="daniel">
+    <changeSet id="01-1" author="daniel">
         <createTable tableName="botPhrases">
-            <column name="id" type="int">
+            <column name="id" type="bigint" autoIncrement="true" >
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="occasion" type="varchar(100)">
@@ -15,5 +15,16 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="01-2" author="daniel">
+    <createTable tableName="sticker">
+        <column name="id" type="bigint" autoIncrement="true" >
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="code" type="varchar(300)">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
     </changeSet>
 </databaseChangeLog>

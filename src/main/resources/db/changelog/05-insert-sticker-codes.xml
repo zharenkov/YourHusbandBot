@@ -1,0 +1,85 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.7"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
+    <changeSet id="05-1" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADDwUAAmvEygrkyJuzc2Kf1QI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-2" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADBQADuw8AAsZRxhX44kGODQJCegI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-3" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADBQADuQ8AAsZRxhXN0q0u_o48VAI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-4" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADAQIAAtzyqwcXnUxKTbEYgAI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-5" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADGwIAAtzyqwcxrg0ZUPeeBgI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-6" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADKg4AAkKvaQAB91nxp3LPmQYC"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-7" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgAD-wMAAjbsGwVVhcfSYjkgZAI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-8" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgAD1AEAAhhC7giMaJpFe5vFVQI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-9" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADiAEAAhhC7ggWwIEMhnXLCAI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-10" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADCAADl_TGFHTucAABYtoR1AI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-11" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADtgEAAvFCvwUY8BjxhQjm4QI"/>
+        </insert>
+    </changeSet>
+
+
+
+</databaseChangeLog>

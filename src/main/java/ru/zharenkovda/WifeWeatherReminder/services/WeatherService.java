@@ -8,23 +8,27 @@ import org.springframework.stereotype.Service;
 import ru.zharenkovda.WifeWeatherReminder.utils.RestRequestHelper;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
 @Service
 public class WeatherService {
 
     private String darkSkyUrl = "https://api.darksky.net/forecast/cf3f211102b3f5a195c897ff6b52980c/53.2,50.15?units=si&lang=ru";
 
-    public String getTodayWeather() throws IOException {
-        return parseTodayWeather(getWeatherJSON());
+    public String getTodayWeather() {
+        try {
+            return parseTodayWeather(getWeatherJSON());
+        } catch (IOException e){
+            return "";
+        }
+
     }
 
-    public String getTommorowWeather() throws IOException {
-        return parseTommorowWeather(getWeatherJSON());
+    public String getTommorowWeather() {
+        try {
+            return parseTomorrowWeather(getWeatherJSON());
+        } catch (IOException e){
+            return "";
+        }
     }
 
     private String getWeatherJSON() throws IOException {
@@ -55,7 +59,7 @@ public class WeatherService {
         return result;
     }
 
-    private String parseTommorowWeather(String jsonString) throws IOException {
+    private String parseTomorrowWeather(String jsonString) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(jsonString);
 

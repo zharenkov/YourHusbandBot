@@ -2,65 +2,122 @@ package ru.zharenkovda.WifeWeatherReminder.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.zharenkovda.WifeWeatherReminder.dao.DatabaseDAO;
+import ru.zharenkovda.WifeWeatherReminder.repository.DatabaseDAO;
 import ru.zharenkovda.WifeWeatherReminder.enumerations.BotPhraseType;
 import ru.zharenkovda.WifeWeatherReminder.enumerations.WeatherType;
-import ru.zharenkovda.WifeWeatherReminder.repository.DataRepository;
+import ru.zharenkovda.WifeWeatherReminder.utils.SettingsBean;
+import twitter4j.TwitterException;
+
+import java.util.Set;
 
 @Service
 public class BotPhraseService {
 
     @Autowired
-    DatabaseDAO databaseDAO;
+    private DatabaseDAO databaseDAO;
 
     @Autowired
-    TelegramService telegramService;
+    private TelegramService telegramService;
 
     @Autowired
-    TrafficService trafficService;
+    private TrafficService trafficService;
 
     @Autowired
-    DataRepository dataRepository;
+    private SettingsBean settingsBean;
+
+    @Autowired
+    private WeatherService weatherService;
+
+    @Autowired
+    private TwitterService twitterService;
 
 
     public void saySomethingLovely() {
-        String chatId = dataRepository.getTelegramChatId();
-        double probability = Math.random();
-        if (probability>=0.65) {
-            telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.LOVE).getPhrase(), chatId);
+        Set<String> chatIds = settingsBean.getTelegramChatIds();
+        for (String chatId : chatIds) {
+            double probability = Math.random();
+            if (probability >= 0.65) {
+                telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.LOVE).getPhrase(), chatId);
+            }
+            if (probability < 0.65 || probability >= 0.9) {
+                telegramService.sendTelegramBotSticker(databaseDAO.getRandomSticker().getStickerCode(), chatId);
+            }
         }
-        if (probability<0.65 || probability>=0.9){
-            telegramService.sendTelegramBotSticker(databaseDAO.getRandomSticker().getStickerCode(),chatId);
-        }
+    }
+
+    public void saySomethingLovely(String chatId) {
+            double probability = Math.random();
+            if (probability >= 0.65) {
+                telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.LOVE).getPhrase(), chatId);
+            }
+            if (probability < 0.65 || probability >= 0.9) {
+                telegramService.sendTelegramBotSticker(databaseDAO.getRandomSticker().getStickerCode(), chatId);
+            }
     }
 
     public void sayGoodMorining(){
-        String chatId = dataRepository.getTelegramChatId();
-        telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.MORNING).getPhrase(),chatId);
+        Set<String> chatIds = settingsBean.getTelegramChatIds();
+        for (String chatId : chatIds) {
+            telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.MORNING).getPhrase(), chatId);
+        }
     }
 
 
-    public void sayCommon(){
-        String chatId = dataRepository.getTelegramChatId();
-        telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.COMMON).getPhrase(),chatId);
+    public void sayCommon() {
+        Set<String> chatIds = settingsBean.getTelegramChatIds();
+        for (String chatId : chatIds) {
+            telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.COMMON).getPhrase(), chatId);
+        }
+    }
+
+    public void sayCommon(String chatId) {
+        telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.COMMON).getPhrase(), chatId);
     }
 
     public void sendWeather(WeatherType weatherType){
-        String chatId = dataRepository.getTelegramChatId();
+        Set<String> chatIds = settingsBean.getTelegramChatIds();
+        for (String chatId : chatIds) {
+            switch (weatherType){
+                case TODAY:
+                    telegramService.sendTelegramBotMessage(weatherService.getTodayWeather(),chatId);
+                    break;
+                case TOMMOROW:
+                    telegramService.sendTelegramBotMessage(weatherService.getTommorowWeather(),chatId);
+                    break;
+            }
+        }
+    }
+
+    public void sendWeather(String chatId, WeatherType weatherType) {
         switch (weatherType){
             case TODAY:
-                telegramService.sendTelegramBotMessage(dataRepository.getTodayWeatherString(),chatId);
+                telegramService.sendTelegramBotMessage(weatherService.getTodayWeather(),chatId);
                 break;
             case TOMMOROW:
-                telegramService.sendTelegramBotMessage(dataRepository.getTommorowWeatherString(),chatId);
+                telegramService.sendTelegramBotMessage(weatherService.getTommorowWeather(),chatId);
                 break;
         }
     }
 
     public void sendTraffic() {
-        String chatId = dataRepository.getTelegramChatId();
+        Set<String> chatIds = settingsBean.getTelegramChatIds();
+        for (String chatId : chatIds) {
+            telegramService.sendTelegramBotMessage(trafficService.getTrafficMessage(),chatId);
+        }
+    }
+
+    public void sendTraffic(String chatId) {
         telegramService.sendTelegramBotMessage(trafficService.getTrafficMessage(),chatId);
     }
 
+    public void easterEggForTwitter(){
+        try {
+            twitterService.sendTwitterDirectMessage(settingsBean.getTwitterUserName(),
+                    "Привет! Еще я умею писать и в твиттер. Но только чуть-чуть.");
+        } catch (TwitterException e) {
+            e.printStackTrace();
+        }
+        ;
+    }
 
 }

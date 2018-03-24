@@ -15,10 +15,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 
-import static javax.xml.xpath.XPathConstants.NUMBER;
 import static javax.xml.xpath.XPathConstants.STRING;
 
 @Service

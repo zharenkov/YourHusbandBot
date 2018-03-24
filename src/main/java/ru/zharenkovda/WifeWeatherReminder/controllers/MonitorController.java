@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.zharenkovda.WifeWeatherReminder.repository.DataRepository;
+import ru.zharenkovda.WifeWeatherReminder.utils.SettingsBean;
+
+import java.util.stream.Collectors;
 
 @RestController
 @EnableAutoConfiguration
@@ -12,21 +14,17 @@ import ru.zharenkovda.WifeWeatherReminder.repository.DataRepository;
 public class MonitorController {
 
     @Autowired
-    DataRepository dataRepository;
+    private SettingsBean settingsBean;
 
-    @RequestMapping("/weather")
-    public String getWeather() {
-        return dataRepository.getTodayWeatherString();
-    }
 
-    @RequestMapping("/chatId")
+    @RequestMapping("/chatIds")
     public String getChatId() {
-        return dataRepository.getTelegramChatId();
+        return settingsBean.getTelegramChatIds().stream().collect(Collectors.joining(", "));
     }
 
     @RequestMapping("/username")
     public String getTwitterUserName() {
-        return dataRepository.getTwitterUserName();
+        return settingsBean.getTwitterUserName();
     }
 
     @RequestMapping("/stop-all")

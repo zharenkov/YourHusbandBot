@@ -1,4 +1,4 @@
-package ru.zharenkovda.WifeWeatherReminder.dao;
+package ru.zharenkovda.WifeWeatherReminder.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.zharenkovda.WifeWeatherReminder.dto.BotPhraseEntity;
@@ -7,7 +7,6 @@ import ru.zharenkovda.WifeWeatherReminder.enumerations.BotPhraseType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Repository
 public class DatabaseDAO {
@@ -24,7 +23,8 @@ public class DatabaseDAO {
 
 
     public StickerEntity getRandomSticker(){
-        return (StickerEntity) entityManager.createQuery("select p from StickerEntity p order by rand()").setMaxResults(1)
+        return (StickerEntity) entityManager.createQuery("select p from StickerEntity p order by rand()")
+                .setMaxResults(1)
                 .getSingleResult();
     }
 

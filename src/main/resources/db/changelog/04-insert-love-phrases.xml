@@ -35,5 +35,13 @@
         </insert>
     </changeSet>
 
+    <changeSet id="04-5" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Je t'aime"/>
+        </insert>
+    </changeSet>
+
 
 </databaseChangeLog>

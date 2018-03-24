@@ -1,7 +1,6 @@
 package ru.zharenkovda.WifeWeatherReminder.scheduler;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ru.zharenkovda.WifeWeatherReminder.services.BotPhraseService;
 
@@ -12,7 +11,7 @@ import static ru.zharenkovda.WifeWeatherReminder.enumerations.WeatherType.TOMMOR
 public class MessagesScheduler {
 
     @Autowired
-    BotPhraseService botPhraseService;
+    private BotPhraseService botPhraseService;
 
 
     //@Scheduled(cron = "0/45 * * * * 1-6",zone = "Europe/Samara")
@@ -49,8 +48,8 @@ public class MessagesScheduler {
     }
 
 
-    @Scheduled(cron = "0/15 * * * * *",zone = "Europe/Samara")
-    public void getTraffic() {
+    //@Scheduled(cron = "0/15 * * * * *",zone = "Europe/Samara")
+    public void sendTraffic() {
         botPhraseService.sendTraffic();
         System.out.println("Traffic sending");
     }

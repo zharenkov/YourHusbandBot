@@ -17,6 +17,9 @@ public class BotPhraseService {
     TelegramService telegramService;
 
     @Autowired
+    TrafficService trafficService;
+
+    @Autowired
     DataRepository dataRepository;
 
 
@@ -52,6 +55,11 @@ public class BotPhraseService {
                 telegramService.sendTelegramBotMessage(dataRepository.getTommorowWeatherString(),chatId);
                 break;
         }
+    }
+
+    public void sendTraffic() {
+        String chatId = dataRepository.getTelegramChatId();
+        telegramService.sendTelegramBotMessage(trafficService.getTrafficMessage(),chatId);
     }
 
 

@@ -8,7 +8,7 @@ import ru.zharenkovda.WifeWeatherReminder.services.WeatherService;
 
 import java.io.IOException;
 
-@Component
+//@Component
 public class WeatherScheduler {
 
     @Autowired
@@ -17,7 +17,7 @@ public class WeatherScheduler {
     @Autowired
     DataRepository dataRepository;
 
-    @Scheduled(cron = "0/30 * * * * 1-6", zone = "Europe/Samara")
+    //@Scheduled(cron = "0/30 * * * * 1-6", zone = "Europe/Samara")
     public void getTommorowWeather() {
         try {
             System.out.println("Weather getting");
@@ -27,7 +27,7 @@ public class WeatherScheduler {
         }
     }
 
-    @Scheduled(cron = "0/30 * * * * 1-6", zone = "Europe/Samara")
+    //@Scheduled(cron = "0/30 * * * * 1-6", zone = "Europe/Samara")
     public void getTodayWeather() {
         try {
             System.out.println("Weather getting");

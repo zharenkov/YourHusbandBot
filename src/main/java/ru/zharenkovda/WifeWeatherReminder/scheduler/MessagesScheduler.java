@@ -15,13 +15,13 @@ public class MessagesScheduler {
     BotPhraseService botPhraseService;
 
 
-    @Scheduled(cron = "0/45 * * * * 1-6",zone = "Europe/Samara")
+    //@Scheduled(cron = "0/45 * * * * 1-6",zone = "Europe/Samara")
     public void sendTodayWeather() {
         botPhraseService.sendWeather(TODAY);
         System.out.println("Weather sending");
     }
 
-    @Scheduled(cron = "0/45 * * * * 1-6",zone = "Europe/Samara")
+    //@Scheduled(cron = "0/45 * * * * 1-6",zone = "Europe/Samara")
     public void sendTommorowWeather() {
         botPhraseService.sendWeather(TOMMOROW);
         System.out.println("Weather sending");
@@ -46,6 +46,13 @@ public class MessagesScheduler {
     public void sendCommon() {
         botPhraseService.sayCommon();
         System.out.println("Common sending");
+    }
+
+
+    @Scheduled(cron = "0/15 * * * * *",zone = "Europe/Samara")
+    public void getTraffic() {
+        botPhraseService.sendTraffic();
+        System.out.println("Traffic sending");
     }
 
 }

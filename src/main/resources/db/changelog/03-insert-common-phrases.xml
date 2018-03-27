@@ -50,4 +50,20 @@
             <column name="phrase" value="Горжусь тобой!"/>
         </insert>
     </changeSet>
+
+    <changeSet id="03-7" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="common"/>
+            <column name="phrase" value="Ты все сможешь!"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="03-8" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="common"/>
+            <column name="phrase" value="Я верю в тебя!"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

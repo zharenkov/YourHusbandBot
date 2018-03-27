@@ -4,12 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ru.zharenkov-da</groupId>
-	<artifactId>wifeWeatherReminder</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>yourHusbandBot</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>wifeWeatherReminder</name>
-	<description>Demo project for Spring Boot</description>
+	<name>yourHusbandBot</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

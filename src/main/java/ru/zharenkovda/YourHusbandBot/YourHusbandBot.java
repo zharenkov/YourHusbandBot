@@ -12,13 +12,13 @@ import ru.zharenkovda.YourHusbandBot.utils.SettingsBean;
 @SpringBootApplication
 @EnableScheduling
 @EnableJpaRepositories
-public class WifeWeatherReminder implements ApplicationRunner {
+public class YourHusbandBot implements ApplicationRunner {
 
     @Autowired
     private SettingsBean settingsBean;
 
     public static void main(String[] args) {
-        SpringApplication.run(WifeWeatherReminder.class, args);
+        SpringApplication.run(YourHusbandBot.class, args);
 
     }
 

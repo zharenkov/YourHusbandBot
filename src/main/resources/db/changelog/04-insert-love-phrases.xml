@@ -43,5 +43,29 @@
         </insert>
     </changeSet>
 
+    <changeSet id="04-6" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="I love you"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="04-7" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Ты лучшая на свете жена ;)"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="04-8" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Твои глаза как путеводные звезды на темном небосклоне"/>
+        </insert>
+    </changeSet>
 
 </databaseChangeLog>

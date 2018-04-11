@@ -35,4 +35,20 @@
         </insert>
     </changeSet>
 
+    <changeSet id="02-5" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="morning"/>
+            <column name="phrase" value="Птички щебечут, утро пришло. Хорошего тебе дня!"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="02-6" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="morning"/>
+            <column name="phrase" value="Теплый утренний ветерок желает тебе доброго утра!"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

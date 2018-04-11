@@ -36,10 +36,10 @@ public class BotPhraseService {
         Set<String> chatIds = settingsBean.getTelegramChatIds();
         for (String chatId : chatIds) {
             double probability = Math.random();
-            if (probability >= 0.65) {
+            if (probability >= 0.6) {
                 telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.LOVE).getPhrase(), chatId);
             }
-            if (probability < 0.65 || probability >= 0.9) {
+            if (probability < 0.6 || probability >= 0.85) {
                 telegramService.sendTelegramBotSticker(databaseDAO.getRandomSticker().getStickerCode(), chatId);
             }
         }
@@ -47,10 +47,10 @@ public class BotPhraseService {
 
     public void saySomethingLovely(String chatId) {
             double probability = Math.random();
-            if (probability >= 0.65) {
+            if (probability >= 0.6) {
                 telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.LOVE).getPhrase(), chatId);
             }
-            if (probability < 0.65 || probability >= 0.9) {
+            if (probability < 0.6 || probability >= 0.85) {
                 telegramService.sendTelegramBotSticker(databaseDAO.getRandomSticker().getStickerCode(), chatId);
             }
     }

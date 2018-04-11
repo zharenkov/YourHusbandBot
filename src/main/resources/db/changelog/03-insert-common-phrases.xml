@@ -66,4 +66,28 @@
             <column name="phrase" value="Я верю в тебя!"/>
         </insert>
     </changeSet>
+
+    <changeSet id="03-9" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="common"/>
+            <column name="phrase" value="Пора немного размяться и пройтись!"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="03-10" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="common"/>
+            <column name="phrase" value="Время зарядки для глаз! Вверх-вниз, влево-вправо."/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="03-11" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="common"/>
+            <column name="phrase" value="Ты лучше всех!"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

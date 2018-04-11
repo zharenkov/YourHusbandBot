@@ -129,6 +129,41 @@
         </insert>
     </changeSet>
 
+    <changeSet id="05-19" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADxgEAAsoDBguh9vhwm5TPHQI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-20" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADFgUAAnlc4glpUUz_eEOucwI"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="05-21" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgAD5QYAAvoLtgjmZbguD1NicAI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-22" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADfQEAAooSqg4LsFlCepWybgI"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05-23" author="daniel">
+        <insert tableName="sticker">
+            <column name="id" autoIncrement="true"/>
+            <column name="code" value="CAADAgADNA4AAkKvaQABoMUu_m4tv1gC"/>
+        </insert>
+    </changeSet>
 
 
 </databaseChangeLog>

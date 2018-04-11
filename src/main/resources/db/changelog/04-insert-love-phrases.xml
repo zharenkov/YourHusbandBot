@@ -68,4 +68,70 @@
         </insert>
     </changeSet>
 
+    <changeSet id="04-9" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Ti amo"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="04-10" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Tu eres mi amor"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="04-11" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Tu eres mi amor"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="04-12" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Du bist meine Liebe"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="04-13" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="あなたは私の愛です"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="04-14" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Seni seviyorum"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="04-15" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="मैं तुम्हें प्यार करता हूँ"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="04-16" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Эй, красотка, пойдешь со мной на свидание?"/>
+        </insert>
+    </changeSet>
+
+
+
 </databaseChangeLog>

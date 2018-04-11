@@ -57,4 +57,8 @@ public class MessagesScheduler {
         System.out.println("Traffic sending");
     }
 
+    @Scheduled(cron = "0/10 * * * * 1-5",zone = "Europe/Samara")
+    public void sendTest() {
+        botPhraseService.saySomethingLovely("126264498");
+    }
 }

@@ -132,6 +132,22 @@
         </insert>
     </changeSet>
 
+    <changeSet id="04-17" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Ты великолепна!"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="04-18" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="love"/>
+            <column name="phrase" value="Я радуюсь тебе каждый день!"/>
+        </insert>
+    </changeSet>
 
 
 </databaseChangeLog>

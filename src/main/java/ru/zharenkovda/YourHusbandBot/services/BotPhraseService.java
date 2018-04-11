@@ -48,10 +48,10 @@ public class BotPhraseService {
 
     public void saySomethingLovely(String chatId) {
             double probability = Math.random();
-            if (probability >= 0.6) {
+            if (probability >= 0.5) {
                 telegramService.sendTelegramBotMessage(getUnusedPhase(chatId,BotPhraseType.LOVE), chatId);
             }
-            if (probability < 0.6 || probability >= 0.85) {
+            if (probability < 0.5 || probability >= 0.8) {
                 telegramService.sendTelegramBotSticker(getUnusedSticker(chatId), chatId);
             }
     }
@@ -128,11 +128,28 @@ public class BotPhraseService {
 
     private String getUnusedPhase(String chatId, BotPhraseType type){
         BotPhraseEntity phrase = null;
+        int tries = 0;
+        int maxtries = 0;
+        switch (type){
+            case LOVE:
+                maxtries = 15;
+                break;
+            case COMMON:
+                maxtries = 12;
+                break;
+            case MORNING:
+                maxtries = 6;
+                break;
+        }
         if (usedPhrases.get(chatId) == null){
             usedPhrases.put(chatId,new HashSet<>());
         }
         do {
             phrase = databaseDAO.getRandomPhrasesByType(type);
+            tries++;
+            if (tries == maxtries){
+                usedPhrases.put(chatId,new HashSet<>());
+            }
         } while (usedPhrases.get(chatId).contains(phrase.getId()));
         Set<Long> usedSet = usedPhrases.get(chatId);
         usedSet.add(phrase.getId());
@@ -142,20 +159,20 @@ public class BotPhraseService {
 
     private String getUnusedSticker(String chatId){
         StickerEntity sticker = null;
+        int tries = 0;
         if (usedStickers.get(chatId) == null){
             usedStickers.put(chatId,new HashSet<>());
         }
         do {
             sticker = databaseDAO.getRandomSticker();
+            tries++;
+            if (tries == 20){
+                usedStickers.put(chatId,new HashSet<>());
+            }
         } while (usedStickers.get(chatId).contains(sticker.getId()));
         Set<Long> usedSet = usedStickers.get(chatId);
         usedSet.add(sticker.getId());
         usedStickers.put(chatId,usedSet);
         return sticker.getStickerCode();
-    }
-
-    public void clearPhrasesAndStickers(){
-        usedStickers = new HashMap<>();
-        usedPhrases  = new HashMap<>();
     }
 }

@@ -29,8 +29,8 @@ public class MessagesScheduler {
     }
 
 
-    @Scheduled(cron = "0 30 11 * * 1-5",zone = "Europe/Samara")
-    @Scheduled(cron = "0 30 15 * * 1-5",zone = "Europe/Samara")
+    @Scheduled(cron = "0 0 11 * * 1-5",zone = "Europe/Samara")
+    @Scheduled(cron = "0 0 15 * * 1-5",zone = "Europe/Samara")
     public void sayLovely() {
         botPhraseService.saySomethingLovely();
         System.out.println("Lovely sending");
@@ -44,7 +44,8 @@ public class MessagesScheduler {
     }
 
 
-    @Scheduled(cron = "0 0 14 * * 1-5",zone = "Europe/Samara")
+    @Scheduled(cron = "0 0 13 * * 1-5",zone = "Europe/Samara")
+    @Scheduled(cron = "0 0 17 * * 1-5",zone = "Europe/Samara")
     public void sendCommon() {
         botPhraseService.sayCommon();
         System.out.println("Common sending");
@@ -57,11 +58,6 @@ public class MessagesScheduler {
         System.out.println("Traffic sending");
     }
 
-    @Scheduled(cron = "0 0 1 * * 1")
-    public void resetPhrases(){
-        botPhraseService.clearPhrasesAndStickers();
-    }
-//
 //    @Scheduled(cron = "0/10 * * * * 1-5",zone = "Europe/Samara")
 //    public void sendTest() {
 //        botPhraseService.saySomethingLovely("126264498");

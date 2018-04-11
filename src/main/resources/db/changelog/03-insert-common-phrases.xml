@@ -90,4 +90,20 @@
             <column name="phrase" value="Ты лучше всех!"/>
         </insert>
     </changeSet>
+
+    <changeSet id="03-12" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="common"/>
+            <column name="phrase" value="Ко мне приходили котики, оставили мурчание для тебя!"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="03-13" author="daniel">
+        <insert tableName="botPhrases">
+            <column name="id" autoIncrement="true"/>
+            <column name="occasion" value="common"/>
+            <column name="phrase" value="Объявляю перерыв! Чай и фруктик в студию!"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

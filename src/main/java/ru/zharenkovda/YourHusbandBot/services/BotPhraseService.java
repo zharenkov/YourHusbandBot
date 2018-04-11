@@ -2,12 +2,17 @@ package ru.zharenkovda.YourHusbandBot.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.zharenkovda.YourHusbandBot.dto.BotPhraseEntity;
+import ru.zharenkovda.YourHusbandBot.dto.StickerEntity;
 import ru.zharenkovda.YourHusbandBot.repository.DatabaseDAO;
 import ru.zharenkovda.YourHusbandBot.enumerations.BotPhraseType;
 import ru.zharenkovda.YourHusbandBot.enumerations.WeatherType;
 import ru.zharenkovda.YourHusbandBot.utils.SettingsBean;
 import twitter4j.TwitterException;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -31,34 +36,31 @@ public class BotPhraseService {
     @Autowired
     private TwitterService twitterService;
 
+    private Map<String,Set<Long>> usedPhrases = new HashMap<>();
+    private Map<String,Set<Long>> usedStickers = new HashMap<>();
 
     public void saySomethingLovely() {
         Set<String> chatIds = settingsBean.getTelegramChatIds();
         for (String chatId : chatIds) {
-            double probability = Math.random();
-            if (probability >= 0.6) {
-                telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.LOVE).getPhrase(), chatId);
-            }
-            if (probability < 0.6 || probability >= 0.85) {
-                telegramService.sendTelegramBotSticker(databaseDAO.getRandomSticker().getStickerCode(), chatId);
-            }
+            saySomethingLovely(chatId);
         }
     }
 
     public void saySomethingLovely(String chatId) {
             double probability = Math.random();
             if (probability >= 0.6) {
-                telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.LOVE).getPhrase(), chatId);
+                telegramService.sendTelegramBotMessage(getUnusedPhase(chatId,BotPhraseType.LOVE), chatId);
             }
             if (probability < 0.6 || probability >= 0.85) {
-                telegramService.sendTelegramBotSticker(databaseDAO.getRandomSticker().getStickerCode(), chatId);
+                telegramService.sendTelegramBotSticker(getUnusedSticker(chatId), chatId);
             }
     }
+
 
     public void sayGoodMorining(){
         Set<String> chatIds = settingsBean.getTelegramChatIds();
         for (String chatId : chatIds) {
-            telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.MORNING).getPhrase(), chatId);
+            telegramService.sendTelegramBotMessage(getUnusedPhase(chatId,BotPhraseType.MORNING), chatId);
         }
     }
 
@@ -66,12 +68,12 @@ public class BotPhraseService {
     public void sayCommon() {
         Set<String> chatIds = settingsBean.getTelegramChatIds();
         for (String chatId : chatIds) {
-            telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.COMMON).getPhrase(), chatId);
+            sayCommon(chatId);
         }
     }
 
     public void sayCommon(String chatId) {
-        telegramService.sendTelegramBotMessage(databaseDAO.getRandomPhrasesByType(BotPhraseType.COMMON).getPhrase(), chatId);
+        telegramService.sendTelegramBotMessage(getUnusedPhase(chatId,BotPhraseType.COMMON), chatId);
     }
 
     public void sayCustomPhrase(String chatId, String text){
@@ -124,4 +126,36 @@ public class BotPhraseService {
         ;
     }
 
+    private String getUnusedPhase(String chatId, BotPhraseType type){
+        BotPhraseEntity phrase = null;
+        if (usedPhrases.get(chatId) == null){
+            usedPhrases.put(chatId,new HashSet<>());
+        }
+        do {
+            phrase = databaseDAO.getRandomPhrasesByType(type);
+        } while (usedPhrases.get(chatId).contains(phrase.getId()));
+        Set<Long> usedSet = usedPhrases.get(chatId);
+        usedSet.add(phrase.getId());
+        usedPhrases.put(chatId,usedSet);
+        return phrase.getPhrase();
+    }
+
+    private String getUnusedSticker(String chatId){
+        StickerEntity sticker = null;
+        if (usedStickers.get(chatId) == null){
+            usedStickers.put(chatId,new HashSet<>());
+        }
+        do {
+            sticker = databaseDAO.getRandomSticker();
+        } while (usedStickers.get(chatId).contains(sticker.getId()));
+        Set<Long> usedSet = usedStickers.get(chatId);
+        usedSet.add(sticker.getId());
+        usedStickers.put(chatId,usedSet);
+        return sticker.getStickerCode();
+    }
+
+    public void clearPhrasesAndStickers(){
+        usedStickers = new HashMap<>();
+        usedPhrases  = new HashMap<>();
+    }
 }

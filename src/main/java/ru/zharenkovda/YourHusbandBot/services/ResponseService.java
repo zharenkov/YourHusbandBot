@@ -41,11 +41,12 @@ public class ResponseService {
                 botPhraseService.sayCustomPhrase(chatId,"Загляни в твиттер");
                 return;
             }
-            if (message.contains("люб")) {
-                botPhraseService.saySomethingLovely(entry.getKey());
-                return;
+            double probability = Math.random();
+            if (probability>0.6) {
+                botPhraseService.saySomethingLovely(chatId);
+            } else {
+                botPhraseService.sayCommon(chatId);
             }
-            botPhraseService.sayCommon(chatId);
         }
     }
 }

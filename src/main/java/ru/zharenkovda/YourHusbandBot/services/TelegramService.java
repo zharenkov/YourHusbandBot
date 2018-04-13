@@ -65,7 +65,11 @@ public class TelegramService {
                 node.get("result").forEach(resultNode -> {
                     String chatId = resultNode.get("message").get("chat").get("id").asText();
                     Long date = resultNode.get("message").get("date").longValue();
-                    String message = resultNode.get("message").get("text").asText();
+                    String message = "sticker";
+                    // message->text is null if user send sticker :(
+                    if (resultNode.get("message").get("text") != null) {
+                        message = resultNode.get("message").get("text").asText();
+                    }
                     settingsBean.getTelegramChatIds().add(chatId);
                     if(isMessageNeedResp(date)) {
                         result.put(chatId, message);

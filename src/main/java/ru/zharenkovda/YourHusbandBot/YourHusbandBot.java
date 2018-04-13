@@ -21,8 +21,7 @@ public class YourHusbandBot implements ApplicationRunner {
     @Autowired
 	private BotPhraseService botPhraseService;
 
-    private String welcomePhrase = "Привет! Я бот версии 2.0. Теперь я знаю больше новых фраз, выучил классные стикеры. " +
-			"А еще стал говорить чаще и реже стал повторяться. Так-то!";
+    private String welcomePhrase = "Привет! Я бот версии 2.1. Выяснилось, что мой механизм ответов сломался из-за отправки мне стикеров. Пришлось мимикрировать. Теперь я стал еще лучше!";
 
     public static void main(String[] args) {
         SpringApplication.run(YourHusbandBot.class, args);
